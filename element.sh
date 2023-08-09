@@ -12,7 +12,7 @@ else
   case $1 in
     [0-9]*) ATOMIC_NUMBER=$($PSQL "SELECT atomic_number FROM elements WHERE atomic_number=$1");;
     [A-Z][a-z]|[A-Z]) ATOMIC_NUMBER=$($PSQL "SELECT atomic_number FROM elements WHERE symbol='$1'");;
-    *) ATOMIC_NUMBER=$($PSQL "SELECT atomic_number FROM elements WHERE name='$1'");;
+    *) ATOMIC_NUMBER=$($PSQL "SELECT atomic_number FROM elements WHERE lower(name)=lower('$1')");;
   esac
 
   if [[ -z $ATOMIC_NUMBER ]]
